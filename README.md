@@ -1,2 +1,2 @@
 # Bachelors-Project
- Drawing the Kontsevich graphs
+ Drawing the Kontsevich graphs in LaTeX
