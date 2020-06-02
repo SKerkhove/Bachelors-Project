@@ -17,10 +17,10 @@ def target_function(encoding,coordinates):
     """
     
     #the parameters
-    L_0 = 20
+    L_0 = 10
     c_se=1
     c_le=1
-    alpha=2
+    alpha=1
     beta=1
     gamma=1
     epsilon=1
@@ -90,6 +90,7 @@ def target_function(encoding,coordinates):
         long_edges_score += left_long_edges_score+right_long_edges_score
     
     #intersections
+    intersections_score = 0
     num_of_intersections=0
 
     for i in range(2*n):
@@ -102,11 +103,16 @@ def target_function(encoding,coordinates):
             q_0=vector([edges_begin_end[j,0],edges_begin_end[j,1]])
             q_1=vector([edges_begin_end[j,2],edges_begin_end[j,3]])
 
+            if p_0==q_0 or p_0 == q_1:
+                continue
+            if p_1 == q_0 or p_1 == q_1:
+                continue
+            
             value=intersection_test(p_0,p_1,q_0,q_1)
             if value == True:
                 num_of_intersections+=1
-    
-    intersections_score = num_of_intersections^gamma*RDF(log(num_of_intersections))^epsilon
+    if num_of_intersections !=0:
+        intersections_score = num_of_intersections^gamma*RDF(log(num_of_intersections))^epsilon
     
     score=short_edges_score+long_edges_score+intersections_score
     
