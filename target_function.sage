@@ -22,6 +22,8 @@ def target_function(encoding,coordinates):
     c_le=1
     alpha=2
     beta=1
+    gamma=1
+    epsilon=1
     
     #getting the prerequisites from the data
     m=encoding[0]
@@ -31,8 +33,10 @@ def target_function(encoding,coordinates):
     #which the source is connected and the column 2 and 3 give the coordinates for the right vertice
     #edges_length is an n x 2 matrix of which the first column gives the lenght of the left edge of the source vertex\
     #and the second column gives the length of the right edge
+    #edges_begin_end is a 2n x 4 matrix containing the begin and end point of each edges in the rows
     vertices_sink = zero_matrix(RR,n,4)
     edges_length=zero_matrix(RR,n,2)
+    edges_begin_end=zero_matrix(RR,2*n,4)
 
     for i in range(n):
         e_L=encoding[3+2*i]
@@ -42,12 +46,19 @@ def target_function(encoding,coordinates):
         
         coord_source_x=coordinates[m+i,0]
         coord_source_y=coordinates[m+i,1]
-        
+        edges_begin_end[[2*i,2*i+1],0]=coord_source_x
+        edges_begin_end[[2*i,2*i+1],1]=coord_source_y
+
         coord_sink_L_x=coordinates[e_L,0]
         coord_sink_L_y=coordinates[e_L,1]
-        
+        edges_begin_end[2*i,2]=coord_sink_L_x
+        edges_begin_end[2*i,3]=coord_sink_L_y
+
+
         coord_sink_R_x=coordinates[e_R,0]
         coord_sink_R_y=coordinates[e_R,1]
+        edges_begin_end[2*i+1,2]=coord_sink_R_x
+        edges_begin_end[2*i+1,3]=coord_sink_R_y
         
         delta_x_L=coord_source_x-coord_sink_L_x
         delta_y_L=coord_source_y-coord_sink_L_y
@@ -79,9 +90,23 @@ def target_function(encoding,coordinates):
         long_edges_score += left_long_edges_score+right_long_edges_score
     
     #intersections
-    intersections_score = 0
+    num_of_intersections=0
+
+    for i in range(2*n):
+        p_0=vector([edges_begin_end[i,0],edges_begin_end[i,1]])
+        p_1=vector([edges_begin_end[i,2],edges_begin_end[i,3]])
+
+        for j in range(2*n):
+            if i == j:
+                continue
+            q_0=vector([edges_begin_end[j,0],edges_begin_end[j,1]])
+            q_1=vector([edges_begin_end[j,2],edges_begin_end[j,3]])
+
+            value=intersection_test(p_0,p_1,q_0,q_1)
+            if value == True:
+                num_of_intersections+=1
     
-    #personally I would really like a symmetry score
+    intersections_score = num_of_intersections^gamma*RDF(log(num_of_intersections))^epsilon
     
     score=short_edges_score+long_edges_score+intersections_score
     
