@@ -4,15 +4,13 @@ def DrawGraph_draw(encoding,coord):
     
     INPUT: 
      
-     - ''encoding'' - a vector of the form $[m,n,s,e_1,e_2,...,e_2n]$
+    - ''encoding'' - a vector of the form $[m,n,s,e_1,e_2,...,e_2n]$
      
-     - ''delta'' - a positive scalar
+    - ''coord'' - an (m+n) x 2 matrix containing coordinates in the form [x_1,y_1;...;x_m+n,y_m+n]
      
-     - ''min_len'' - a positive scalar
+    OUTPUT:
      
-     OUTPUT:
-     
-     - a graphics plot 
+    - a graphics plot 
          
     """
     

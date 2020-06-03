@@ -6,11 +6,11 @@ def target_function(encoding,coordinates):
     
     - ''encoding'' - a vector of the form $[m,n,s,e_1,e_2,...,e_2n]$
     
-    - '' coordinates'' - an (n+m) x 2 matrix containing coordinates in the form [x_1,y_1;...;x_n+m,y_n+m]
+    - ''coordinates'' - an (n+m) x 2 matrix containing coordinates in the form [x_1,y_1;...;x_n+m,y_n+m]
     
     OUTPUT:
     
-    - a scalar
+    - a scalar, the larger the value, the less 'beautiful' the drawing is
     
     EXAMPLES:
     
