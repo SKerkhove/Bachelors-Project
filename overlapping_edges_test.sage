@@ -1,4 +1,4 @@
-def overlapping_edges_test(encoding,delta,coordinates):
+def overlapping_edges_test(encoding,delta,n_coordinates):
     r"""
     returns a value False or True, depending on whether the defined graph has overlapping edges
     
@@ -8,7 +8,7 @@ def overlapping_edges_test(encoding,delta,coordinates):
      
      - ''delta'' - a positive scalar
      
-     - ''coordinates'' - an n x 2 matrix containing coordinates in the form [x_1,y_1;...;x_n,y_n]
+     - ''n_coordinates'' - an n x 2 matrix containing coordinates in the form [x_1,y_1;...;x_n,y_n]
      
      OUTPUT:
      
@@ -29,62 +29,43 @@ def overlapping_edges_test(encoding,delta,coordinates):
     for i in range(m):
         sink_coord[i,0]=i*delta
     
-    inclines=zero_vector(RR,2*n)
-    source_vert_x=zero_vector(RR,2*n)
-    source_vert_y=zero_vector(RR,2*n)
-    goal_vert_x=zero_vector(RR,2*n)
-    goal_vert_y=zero_vector(RR,2*n)
-    
+    coordinates=block_matrix([[sink_coord],[n_coordinates]])
+
+    edges_source_goal=zero_matrix(RR,2*n,4)
     for i in range(2*n):
-        
         if i%2==0:
-            source_vert_x[i]=coordinates[i/2,0]
-            source_vert_y[i]=coordinates[i/2,1] 
-            
-        if i%2==1:
-            source_vert_x[i]=coordinates[(i-1)/2,0]
-            source_vert_y[i]=coordinates[(i-1)/2,1]
-            
-        goal_vert=encoding[i+2]
-        if goal_vert<m:
-            goal_vert_x[i]=sink_coord[goal_vert,0]
-            goal_vert_y[i]=sink_coord[goal_vert,1]
-        if goal_vert>=m:
-            goal_vert_x[i]=coordinates[goal_vert-m,0]
-            goal_vert_y[i]=coordinates[goal_vert-m,1]
-        
-        delta_x=source_vert_x[i]-goal_vert_x[i]
-        delta_y=source_vert_y[i]-goal_vert_y[i]
-        
-        if delta_y==0:
-            inclines[i]=10
+            source_vertice_label=i/2+m
         else:
-            inclines[i]=delta_x/delta_y
-        
+            source_vertice_label=(i-1)/2+m
+        source_vertice_x=coordinates[source_vertice_label,0]
+        source_vertice_y=coordinates[source_vertice_label,1]
+
+        goal_vertice_label=encoding[3+i]
+        goal_vertice_x=coordinates[goal_vertice_label,0]
+        goal_vertice_y=coordinates[goal_vertice_label,1]
+
+        edges_source_goal[i,:]=vector([source_vertice_x,source_vertice_y,goal_vertice_x,goal_vertice_y])
+    
     for i in range(2*n):
+        p_0=vector([edges_source_goal[i,0],edges_source_goal[i,1]])
+        p_1=vector([edges_source_goal[i,2],edges_source_goal[i,3]])
+        r=p_1-p_0
         for j in range(2*n):
-            if j==i:
+            if i == j:
                 continue
-            if inclines[i]==inclines[j]:
-                if source_vert_x[i]<source_vert_x[j]<goal_vert_x[i]:
-                    if source_vert_y[i]<source_vert_y[j]<goal_vert_y[i] or \
-                    source_vert_y[i]>source_vert_y[j]>goal_vert_y[i]:
-                        delta_x = source_vert_x[j]-source_vert_x[i]
-                        if source_vert_y[j]==source_vert_y[i]+delta_x*inclines[i]:
-                            value=False
-                            break
-                        
-                if source_vert_x[i]>source_vert_x[j]>goal_vert_x[i]:
-                    if source_vert_y[i]<source_vert_y[j]<goal_vert_y[i] or \
-                    source_vert_y[i]>source_vert_y[j]>goal_vert_y[i]:
-                        delta_x = source_vert_x[j]-source_vert_x[i]
-                        if source_vert_y[j]==source_vert_y[i]+delta_x*inclines[i]:
-                            value=False
-                            break
-                        
-        if value==False:
-            break
-        
-    
-    
+            q_0=vector([edges_source_goal[j,0],edges_source_goal[j,1]])
+            q_1=vector([edges_source_goal[j,2],edges_source_goal[j,3]])
+
+            s=q_1-q_0
+            r_cross_s=r[0]*s[1]-r[1]*s[0]
+
+            q_min_p=q_0-p_0
+            q_min_p_cross_r=q_min_p[0]*r[1]-q_min_p[1]*r[0]
+
+            if r_cross_s == 0 and q_min_p_cross_r == 0:
+                t_0=q_min_p*r/(r*r)
+                t_1=t_0+s*r/(r*r)
+                if 0<t_0<1 or 0<t_1<1:
+                    value = False
+
     return value

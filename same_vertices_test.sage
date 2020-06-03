@@ -1,11 +1,15 @@
-def same_vertices_test(coordinates):
+def same_vertices_test(encoding, delta, n_coordinates):
     
     r""""
     returns a value True or False indicating whether the coordinates all indicate unique points
     
     INPUT:
     
-    - ''coordinates'' - an n x 2 matrix containing coordinates in the form [x_1,y_1;...;x_n,y_n]
+    - ''encoding'' - a vector of the form $[m,n,s,e_1,e_2,...,e_2n]$
+     
+    - ''delta'' - a positive scalar
+    
+    - ''n_coordinates'' - an n x 2 matrix containing coordinates in the form [x_1,y_1;...;x_n,y_n]
     
     OUTPUT:
     
@@ -18,10 +22,16 @@ def same_vertices_test(coordinates):
         True
     
     """
-    n=coordinates.nrows()
+    m=encoding[0]
+    m_coordinates=zero_matrix(RR,m,2)
+    for i in range(m):
+        m_coordinates[i,0]=i*delta
+    
+    coordinates=block_matrix([[m_coordinates],[n_coordinates]])
+    k=coordinates.nrows()
     value=True
-    for i in range(n):
-        for j in range(n):
+    for i in range(k):
+        for j in range(k):
             if coordinates[i,:]==coordinates[j,:]:
                 if i!=j:
                     value = False

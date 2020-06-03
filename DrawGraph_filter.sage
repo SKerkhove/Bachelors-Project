@@ -30,7 +30,7 @@ def DrawGraph_filter(encoding,delta,min_len):
     while value == False:
         coordinates=DrawGraph_algorithm(encoding,delta)
         v1=positive_test(coordinates)
-        v2=same_vertices_test(coordinates)
+        v2=same_vertices_test(encoding, delta, coordinates)
         v3=length_test(encoding,delta,coordinates,min_len)
         v4=overlapping_edges_test(encoding,delta,coordinates)
         value = all([v1,v2,v3,v4])
