@@ -97,9 +97,7 @@ def target_function(encoding,coordinates):
         p_0=vector([edges_begin_end[i,0],edges_begin_end[i,1]])
         p_1=vector([edges_begin_end[i,2],edges_begin_end[i,3]])
 
-        for j in range(2*n):
-            if i == j:
-                continue
+        for j in range(i+1,2*n):
             q_0=vector([edges_begin_end[j,0],edges_begin_end[j,1]])
             q_1=vector([edges_begin_end[j,2],edges_begin_end[j,3]])
 
