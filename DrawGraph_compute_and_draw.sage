@@ -19,13 +19,8 @@ def DrawGraph_compute_and_draw(encoding,delta,min_len):
     m=encoding[0]
     n=encoding[1]
     
-    n_coordinates=DrawGraph_filter(encoding,delta,min_len)
-    m_coordinates=zero_matrix(RR,m,2)
+    coord=DrawGraph_filter(encoding,delta,min_len)
     
-    for i in range(m):
-        m_coordinates[i,0]=delta*i
-        
-    coord=block_matrix([[m_coordinates],[n_coordinates]])
     coordinates=coord.rows()
     points=point2d(coord)
     plot_list=[points]
