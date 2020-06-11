@@ -39,9 +39,9 @@ def length_test(encoding,delta,coordinates,min_len):
         source_vert_x=coordinates[i,0]
         source_vert_y=coordinates[i,1]
         
-        
         goal_vert_L=encoding[3+2*i]
         goal_vert_R=encoding[4+2*i]
+
         if goal_vert_L<m:
             goal_vert_L_x=sink_coord[goal_vert_L,0]
             goal_vert_L_y=sink_coord[goal_vert_L,1]
@@ -66,12 +66,13 @@ def length_test(encoding,delta,coordinates,min_len):
         edge_length=sqrt(edge_length_sq)
         if edge_length<min_len:
             value=False
+            break
                     
-
         edge_length_sq=delta_R_x^2+delta_R_y^2
         edge_length=sqrt(edge_length_sq)
         if edge_length<min_len:
-            value=False    
+            value=False
+            break   
     
     
     return value

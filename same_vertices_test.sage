@@ -31,8 +31,8 @@ def same_vertices_test(encoding, delta, n_coordinates):
     k=coordinates.nrows()
     value=True
     for i in range(k):
-        for j in range(k):
+        for j in range(i+1,k):
             if coordinates[i,:]==coordinates[j,:]:
-                if i!=j:
-                    value = False
+                value = False
+                break
     return value 

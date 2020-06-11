@@ -109,8 +109,8 @@ def target_function(encoding,coordinates):
             value=intersection_test(p_0,p_1,q_0,q_1)
             if value == True:
                 num_of_intersections+=1
-    if num_of_intersections !=0:
-        intersections_score = num_of_intersections^gamma*RDF(log(num_of_intersections))^epsilon
+    
+    intersections_score = num_of_intersections^gamma*RDF(log(num_of_intersections))^epsilon
     
     score=short_edges_score+long_edges_score+intersections_score
     

@@ -22,12 +22,11 @@ def positive_test(coordinates):
         False
     
     """
-    i=0
     n=coordinates.nrows()
     value=True
-    while i<n:
+    for i in range(n):
          if coordinates[i,1]<=0:
              value = False
-             i=n
-         i=i+1
+             break
+
     return value
