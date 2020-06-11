@@ -91,7 +91,7 @@ def target_function(encoding,coordinates):
     
     #intersections
     intersections_score = 0
-    num_of_intersections=0
+    num_of_intersections=1
 
     for i in range(2*n):
         p_0=vector([edges_begin_end[i,0],edges_begin_end[i,1]])
