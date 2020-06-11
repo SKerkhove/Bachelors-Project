@@ -25,13 +25,13 @@ def overlapping_edges_test(encoding,delta,n_coordinates):
     n=encoding[1]
     value=True
     
-    sink_coord=zero_matrix(RR,m,2)
+    sink_coord=zero_matrix(QQ,m,2)
     for i in range(m):
         sink_coord[i,0]=i*delta
     
     coordinates=block_matrix([[sink_coord],[n_coordinates]])
 
-    edges_source_goal=zero_matrix(RR,2*n,4)
+    edges_source_goal=zero_matrix(QQ,2*n,4)
     for i in range(2*n):
         if i%2==0:
             source_vertice_label=i/2+m
@@ -49,10 +49,10 @@ def overlapping_edges_test(encoding,delta,n_coordinates):
     for i in range(2*n):
         p_0=vector([edges_source_goal[i,0],edges_source_goal[i,1]])
         p_1=vector([edges_source_goal[i,2],edges_source_goal[i,3]])
+        if p_0==p_1:
+            continue
         r=p_1-p_0
-        for j in range(2*n):
-            if i == j:
-                continue
+        for j in range(i+1,2*n):
             q_0=vector([edges_source_goal[j,0],edges_source_goal[j,1]])
             q_1=vector([edges_source_goal[j,2],edges_source_goal[j,3]])
 
@@ -65,7 +65,8 @@ def overlapping_edges_test(encoding,delta,n_coordinates):
             if r_cross_s == 0 and q_min_p_cross_r == 0:
                 t_0=q_min_p*r/(r*r)
                 t_1=t_0+s*r/(r*r)
-                if 0<t_0<1 or 0<t_1<1:
+                if 0<=t_0<=1 or 0<=t_1<=1:
                     value = False
+                    break
 
     return value
