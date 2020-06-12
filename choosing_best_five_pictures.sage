@@ -29,6 +29,16 @@ def choosing_best_five_pictures(encoding,delta,min_len,num_of_iterations):
             if list_of_coordinates[i]==list_of_coordinates[j]:
                 list_of_unique_coordinates.remove(list_of_coordinates[i])
                 break
+            duplicate_num=0
+            for k in range(m,m+n):
+                coord_1=list_of_coordinates[i][k,:]
+                for l in range(m,m+n):
+                    if coord_1==list_of_coordinates[j][l,:]:
+                        duplicate_num +=1
+                        break
+                if duplicate_num==n:
+                    list_of_unique_coordinates.remove(list_of_coordinates[i])
+            break
     
     num_unique_coordinates=len(list_of_unique_coordinates)
                 
