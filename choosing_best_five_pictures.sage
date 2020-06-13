@@ -17,27 +17,33 @@ def choosing_best_five_pictures(encoding,delta,min_len,num_of_iterations):
     - a list of 5 coordinate systems
 
     """
+    m=encoding[0]
+    n=encoding[1]
+    e_list=[]
+    for i in range(n):
+        e_list.append([encoding[2*i+3],encoding[2*i+4]])
+        
     list_of_coordinates=generate_list_of_coordinates(encoding,delta,min_len,num_of_iterations)
 
     list_of_unique_coordinates=[]
     for i in range(num_of_iterations):
         list_of_unique_coordinates.append(list_of_coordinates[i])
 
-    #while i<num_of_iterations
     for i in range(num_of_iterations):
+        coord_1=list_of_coordinates[i]
         for j in range(i+1,num_of_iterations):
-            if list_of_coordinates[i]==list_of_coordinates[j]:
-                list_of_unique_coordinates.remove(list_of_coordinates[i])
+            coord_2=list_of_coordinates[j]
+            if coord_1==coord_2:
+                list_of_unique_coordinates.remove(coord_1)
                 break
-            duplicate_num=0
             for k in range(m,m+n):
-                coord_1=list_of_coordinates[i][k,:]
-                for l in range(m,m+n):
-                    if coord_1==list_of_coordinates[j][l,:]:
-                        duplicate_num +=1
-                        break
-                if duplicate_num==n:
-                    list_of_unique_coordinates.remove(list_of_coordinates[i])
+                for l in range(k+1,m+n):
+                    if e_list[k-m] == e_list[l-m]:
+                        if coord_1[k] == coord_2[l] and coord_1[l] == coord_2[k]:
+                            if coord_1[m:k] == coord_2[m:k] and\
+                            coord_1[k+1:l] == coord_2[k+1:l] and\
+                            coord_1[l+1:m+n] == coord_2[l+1:m+n]:
+                                list_of_unique_coordinates.remove(coord_1)
             break
     
     num_unique_coordinates=len(list_of_unique_coordinates)
