@@ -55,6 +55,11 @@ def overlapping_edges_test(encoding,delta,n_coordinates):
         for j in range(i+1,2*n):
             q_0=vector([edges_source_goal[j,0],edges_source_goal[j,1]])
             q_1=vector([edges_source_goal[j,2],edges_source_goal[j,3]])
+            if q_0==q_1:
+                continue
+
+            if p_0 == q_1 and p_1==q_0:
+                continue
 
             s=q_1-q_0
             r_cross_s=r[0]*s[1]-r[1]*s[0]
