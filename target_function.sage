@@ -18,12 +18,15 @@ def target_function(encoding,coordinates):
     
     #the parameters
     L_0 = 10
+    L_1=10
     c_se=1
     c_le=1
+    c_de=1
     alpha=1
     beta=1
     gamma=1
     epsilon=1
+    zeta=1
     
     #getting the prerequisites from the data
     m=encoding[0]
@@ -80,7 +83,7 @@ def target_function(encoding,coordinates):
         length_L=edges_length[i,0]
         length_R=edges_length[i,1]
         
-        left_short_edges_score = c_se*(length_L/L_0)^alpha
+        left_short_edges_score = 0
         right_short_edges_score =c_se*(length_R/L_0)^alpha
         
         left_long_edges_score = c_le*(L_0/length_L)^beta
@@ -112,6 +115,29 @@ def target_function(encoding,coordinates):
     
     intersections_score = num_of_intersections^gamma*RDF(log(num_of_intersections))^epsilon
     
-    score=short_edges_score+long_edges_score+intersections_score
+    #distance between unrelated vertices
+    distance_vertices_score=0
+    for i in range(n):
+        vertex_1_x=coordinates[i+m,0]
+        vertex_1_y=coordinates[i+m,1]
+        for j in range(i+m):
+            if j == encoding[3+2*i] or j == encoding[4+2*i]:
+                continue
+            vertex_2_x=coordinates[j,0]
+            vertex_2_y=coordinates[j,1]
+            Lenght_ij_sq=(vertex_2_x-vertex_1_x)^2+(vertex_2_y-vertex_1_y)^2
+            Lenght_ij=sqrt(Lenght_ij_sq)
+            distance_vertices_score+=c_de*(L_1/Lenght_ij)^zeta
+
+        for j in range(i+m+1,n+m)
+            if j == encoding[3+2*i] or j == encoding[4+2*i]:
+                continue
+            vertex_2_x=coordinates[j,0]
+            vertex_2_y=coordinates[j,1]
+            Lenght_ij_sq=(vertex_2_x-vertex_1_x)^2+(vertex_2_y-vertex_1_y)^2
+            Lenght_ij=sqrt(Lenght_ij_sq)
+            distance_vertices_score+=c_de*(L_1/Lenght_ij)^zeta
+
+    score=short_edges_score+long_edges_score+intersections_score+distance_vertices_score
     
     return score
