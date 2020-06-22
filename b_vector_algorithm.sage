@@ -30,4 +30,6 @@ def b_vector(encoding,delta,inclines):
          e=encoding[i+3]
          if e < m:
              b[i]=e*delta*inclines[i,1]
+         if encoding[2*e-1]==m+floor(i/2) or encoding[2*e]==m+floor(i/2):
+            b[i]=delta
      return b

@@ -30,6 +30,14 @@ def A_matrix(encoding,inclines):
      A=zero_matrix(2*n,2*n)
      for i in range(2*n):
          e=encoding[i+3]
+         if e>=m:
+             if encoding[2*e-1]==m+floor(i/2) or encoding[2*e]==m+floor(i/2):
+                if i%2 == 0:
+                    A[i,i+1]=1
+                if i%2 == 1:
+                    A[i,i]=1
+                continue
+                    
          if i%2 == 0:
              A[i,i]=inclines[i,1]
              A[i,i+1]=-inclines[i,0]
@@ -42,4 +50,5 @@ def A_matrix(encoding,inclines):
              if e >= m:
                  A[i,2*(e-m+1)-2]=-inclines[i,1]
                  A[i,2*(e-m+1)-1]=inclines[i,0]
+     
      return A
