@@ -26,10 +26,17 @@ def b_vector(encoding,delta,inclines):
      n=encoding[1]
     
      b=zero_vector(2*n)
+     two_cycles_list=[]
      for i in range(2*n):
          e=encoding[i+3]
          if e < m:
              b[i]=e*delta*inclines[i,1]
-         if encoding[2*e-1]==m+floor(i/2) or encoding[2*e]==m+floor(i/2):
-            b[i]=delta
+         else:    
+             if encoding[2*e-1]==m+floor(i/2) or encoding[2*e]==m+floor(i/2):
+                 two_cycle=sorted([e,m+floor(i/2)])
+                 if two_cycle in two_cycles_list:
+                     continue
+                 b[i]=delta
+                 two_cycles_list.append(two_cycle)
+
      return b
