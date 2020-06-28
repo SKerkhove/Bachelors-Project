@@ -20,9 +20,8 @@ def DrawGraph_compute_and_draw(encoding,delta,min_len):
     n=encoding[1]
     
     coord=DrawGraph_filter(encoding,delta,min_len)
-    
     coordinates=coord.rows()
-    points=point2d(coord)
+    points=point2d(coord,size=50)
     plot_list=[points]
     
     for i in range(n):
