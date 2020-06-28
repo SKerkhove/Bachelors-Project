@@ -42,14 +42,16 @@ def DrawGraph_filter(encoding,delta,min_len):
         value = all([v1,v2,v3,v4])
         k=k+1
         if k == 10^3:
-            coordinates=0
+            n_coordinates=0
             break
     
     m=encoding[0]
     m_coordinates=zero_matrix(RR,m,2)
     for i in range(m):
         m_coordinates[i,0]=i*delta
-
-    coordinates=block_matrix([[m_coordinates],[n_coordinates]])
+    if n_coordinates!=0:
+        coordinates=block_matrix([[m_coordinates],[n_coordinates]])
+    else:
+        coordinates=0
 
     return coordinates

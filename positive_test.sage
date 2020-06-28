@@ -25,8 +25,8 @@ def positive_test(coordinates):
     n=coordinates.nrows()
     value=True
     for i in range(n):
-         if coordinates[i,1]<=0:
-             value = False
-             break
-
+        if coordinates[i,1]<=0:
+            value = False
+            break
+    
     return value

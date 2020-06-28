@@ -35,4 +35,5 @@ def same_vertices_test(encoding, delta, n_coordinates):
             if coordinates[i,:]==coordinates[j,:]:
                 value = False
                 break
-    return value 
+                
+    return value
