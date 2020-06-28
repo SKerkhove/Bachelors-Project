@@ -43,7 +43,14 @@ def intersection_test(p_1,p_2,q_1,q_2):
         q_min_p_x_r=q_min_p[0]*r[1]-q_min_p[1]*r[0]
         u=q_min_p_x_r/r_x_s
 
-        if 0<=t<1 and 0<=u<=1:
+        if 0<=t<=1 and 0<=u<=1:
             value=True
+            if t == 0:
+                if u == 0 or u == 1:
+                    value=False
+            if t == 1:
+                if u == 0 or u == 1:
+                    value=False
+            
 
     return value
