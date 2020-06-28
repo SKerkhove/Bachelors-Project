@@ -30,4 +30,5 @@ def inclines_to_coordinates(encoding,inclines,delta):
          x=0
      if abs(det(A))>0:
          x=A\b
+
      return x

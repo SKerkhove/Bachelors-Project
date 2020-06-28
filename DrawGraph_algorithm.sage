@@ -52,6 +52,7 @@ def DrawGraph_algorithm(encoding,delta):
                      if k<nofinclines-1:
                          inclines[i,:]=set_of_inclines[k+1,:]
          x=inclines_to_coordinates(encoding,inclines,delta)
+
                     
      #changing the look of the output
      coordinates=zero_matrix(RR,n,2)
