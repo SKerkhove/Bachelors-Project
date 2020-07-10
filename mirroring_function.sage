@@ -7,9 +7,15 @@ def mirroring_function(encoding,coordinates):
     for i in range(2*n):
         e=encoding[3+i]
         if e==1:
-            new_encoding.append(0)
+            if i%2==1 and encoding[2+i]==0:
+                new_encoding.append(1)
+            else:
+                new_encoding.append(0)
         if e==0:
-            new_encoding.append(1)
+            if i%2==0 and encoding[4+i]==1:
+                new_encoding.append(0)
+            else:
+                new_encoding.append(1)
         if e not in [0,1]:
             new_encoding.append(e)
         print(new_encoding)
