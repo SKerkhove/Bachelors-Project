@@ -34,17 +34,17 @@ def overlapping_edges_test(encoding,delta,n_coordinates):
     edges_source_goal=zero_matrix(QQ,2*n,4)
     for i in range(2*n):
         if i%2==0:
-            source_vertice_label=i/2+m
+            source_vertex_label=i/2+m
         else:
             source_vertice_label=(i-1)/2+m
-        source_vertice_x=coordinates[source_vertice_label,0]
-        source_vertice_y=coordinates[source_vertice_label,1]
+        source_vertex_x=coordinates[source_vertex_label,0]
+        source_vertex_y=coordinates[source_vertex_label,1]
 
-        goal_vertice_label=encoding[3+i]
-        goal_vertice_x=coordinates[goal_vertice_label,0]
-        goal_vertice_y=coordinates[goal_vertice_label,1]
+        goal_vertex_label=encoding[3+i]
+        goal_vertex_x=coordinates[goal_vertex_label,0]
+        goal_vertex_y=coordinates[goal_vertex_label,1]
 
-        edges_source_goal[i,:]=vector([source_vertice_x,source_vertice_y,goal_vertice_x,goal_vertice_y])
+        edges_source_goal[i,:]=vector([source_vertex_x,source_vertex_y,goal_vertex_x,goal_vertex_y])
     
     for i in range(2*n):
         p_0=vector([edges_source_goal[i,0],edges_source_goal[i,1]])

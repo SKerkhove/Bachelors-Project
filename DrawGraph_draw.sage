@@ -25,14 +25,14 @@ def DrawGraph_draw(encoding,coord):
     for i in range(n):
         source_vertice=coordinates[m+i]
         
-        left_vertice_label=encoding[2*i+3]
-        right_vertice_label=encoding[2*i+4]
+        left_vertex_label=encoding[2*i+3]
+        right_vertex_label=encoding[2*i+4]
         
-        left_vertice=coordinates[left_vertice_label]
-        right_vertice=coordinates[right_vertice_label]
+        left_vertex=coordinates[left_vertex_label]
+        right_vertex=coordinates[right_vertex_label]
         
-        left_edge=arrow2d(source_vertice,left_vertice)
-        right_edge=arrow2d(source_vertice,right_vertice)
+        left_edge=arrow2d(source_vertice,left_vertex)
+        right_edge=arrow2d(source_vertice,right_vertex)
         
         plot_list.append(left_edge)
         plot_list.append(right_edge)

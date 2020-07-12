@@ -43,9 +43,9 @@ def target_function(encoding,delta,coordinates):
     m=encoding[0]
     n=encoding[1]
     
-    #vertices_sink is an n x 4 matrix of which the first two columns give the coordinates for the left vertice with\
-    #which the source is connected and the column 2 and 3 give the coordinates for the right vertice
-    #edges_length is an n x 2 matrix of which the first column gives the lenght of the left edge of the source vertex\
+    #vertices_sink is an n x 4 matrix of which the first two columns give the coordinates for the left vertex with\
+    #which the source is connected and the column 2 and 3 give the coordinates for the right vertex
+    #edges_length is an n x 2 matrix of which the first column gives the length of the left edge of the source vertex\
     #and the second column gives the length of the right edge
     #edges_begin_end is a 2n x 4 matrix containing the begin and end point of each edges in the rows
     vertices_sink = zero_matrix(RR,n,4)
@@ -134,18 +134,18 @@ def target_function(encoding,delta,coordinates):
                 continue
             vertex_2_x=coordinates[j,0]
             vertex_2_y=coordinates[j,1]
-            Lenght_ij_sq=(vertex_2_x-vertex_1_x)^2+(vertex_2_y-vertex_1_y)^2
-            Lenght_ij=sqrt(Lenght_ij_sq)
-            distance_vertices_score+=c_dv*(L_1/Lenght_ij)^zeta
+            Length_ij_sq=(vertex_2_x-vertex_1_x)^2+(vertex_2_y-vertex_1_y)^2
+            Length_ij=sqrt(Length_ij_sq)
+            distance_vertices_score+=c_dv*(L_1/Length_ij)^zeta
 
         for j in range(i+m+1,n+m):
             if j == encoding[3+2*i] or j == encoding[4+2*i]:
                 continue
             vertex_2_x=coordinates[j,0]
             vertex_2_y=coordinates[j,1]
-            Lenght_ij_sq=(vertex_2_x-vertex_1_x)^2+(vertex_2_y-vertex_1_y)^2
-            Lenght_ij=sqrt(Lenght_ij_sq)
-            distance_vertices_score+=c_dv*(L_1/Lenght_ij)^zeta
+            Length_ij_sq=(vertex_2_x-vertex_1_x)^2+(vertex_2_y-vertex_1_y)^2
+            Length_ij=sqrt(Length_ij_sq)
+            distance_vertices_score+=c_dv*(L_1/Length_ij)^zeta
             
     #height y-coordinate score
     height_y_score=0

@@ -16,7 +16,7 @@ def length_test(encoding,delta,coordinates,min_len):
      
     OUTPUT:
     
-    - a value False or True, denoting whether all edges of the defined graph are larger than the minimum lenght
+    - a value False or True, denoting whether all edges of the defined graph are larger than the minimum length
     
     EXAMPLES:
         sage: length_test(vector([2,3,1,0,1,0,4,1,2]),40,matrix([[160,40],[210,105],[280,0]]),10)
